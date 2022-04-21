@@ -1,0 +1,10 @@
+
+// run bable
+{
+    "presets": [
+        "@babel/preset-env"
+    ]
+}
+
+   
+

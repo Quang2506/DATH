@@ -1,0 +1,8 @@
+# no git upload
+
+
+/node_modules
+/vendor
+/.idea
+.idea/
+.env
