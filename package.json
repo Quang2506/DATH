@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "đồ án tổng hợp ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quang2506/DATH.git"
+  },
+  "keywords": [
+    "Quang",
+    "Tran"
+  ],
+  "author": "Quang Tran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quang2506/DATH/issues"
+  },
+  "homepage": "https://github.com/Quang2506/DATH#readme"
+}
