@@ -1,4 +1,4 @@
-import { json } from 'body-parser'
+
 import db from '../models/index'
 
 
@@ -13,6 +13,11 @@ const getHomePage =async (req, res)=>{
     }
    
 }
+const postCrud = (req,res)=>{
+    console.log(req.body)
+    return res.send('post crud form')
+}
 module.exports= {
-    getHomePage:getHomePage
+    getHomePage:getHomePage,
+    postCrud :postCrud 
 }
