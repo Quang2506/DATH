@@ -1,10 +1,13 @@
 import express from 'express'
-import {getHomePage,postCrud } from '../controller/homeController'
+import {CRUDuser,postCrud ,getHomePage} from '../controller/homeController'
 const router = express.Router()
 
 const initWebRoutes = (app) => {
     router.get('/',getHomePage)
+    router.get('/cruduser',CRUDuser)
     router.post('/post-crud',postCrud )
+    // router.get('/get-user',displayUser)
+    
 
     return app.use("/",router)
 }
