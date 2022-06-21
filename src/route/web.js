@@ -1,6 +1,19 @@
 import express from 'express'
-import {CRUDuser,postCrud ,getHomePage,displayUser,editCrud,putCrud,deleteCrud} from '../controller/homeController'
-import { handleLogin } from '../controller/userLogin'
+import {
+    CRUDuser,
+    postCrud,
+    getHomePage,
+    displayUser,
+    editCrud,putCrud,
+    deleteCrud} from '../controller/homeController'
+import { 
+    handleLogin,
+    handleGetUser,
+    handleCreateUser,
+    handleDeleteUser,
+    handleEditUser
+    
+} from '../controller/userLogin'
 const router = express.Router()
 
 const initWebRoutes = (app) => {
@@ -13,7 +26,10 @@ const initWebRoutes = (app) => {
     router.get('/delete-crud',deleteCrud)
       
     router.post('/api/login',handleLogin)
-
+    router.get('/api/user-login',handleGetUser)
+    router.post('/api/create-user',handleCreateUser)
+    router.delete('/api/delete-user',handleDeleteUser)
+    router.put('/api/edit-user',handleEditUser)
     return app.use("/",router)
 }
 module.exports = initWebRoutes
