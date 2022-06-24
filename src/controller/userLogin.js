@@ -1,5 +1,5 @@
 import user_services from '../services/user_services'
-
+import db from '../models/index'
 
 const handleLogin=async (req,res)=>{
     const email = req.body.email
@@ -22,7 +22,6 @@ const handleLogin=async (req,res)=>{
 
 const handleGetUser = async (req,res)=>{
     const id = req.query.id
-    console.log('iddd',id)
     if(!id) {
         return res.status(200).json({
             errcode:1,
@@ -62,10 +61,27 @@ const handleEditUser = async (req,res)=>{
     return  res.status(200).json({data})
     
 }
+const getAllCode =async (req,res)=>{
+    try{
+        const data = await db.CodeAll.findAll()
+        
+        console.log(data)
+    }catch(e){
+        console.log('e',e)
+       return res.status(200).json({
+        errcode:-1,
+        errMessage:'Error from  Server'
+       })
+
+    }
+}
 module.exports={
+    getAllCode:getAllCode,
     handleLogin:handleLogin,
     handleGetUser:handleGetUser,
     handleCreateUser:handleCreateUser,
     handleDeleteUser:handleDeleteUser,
-    handleEditUser,handleEditUser
+    handleEditUser:handleEditUser,
+    getAllCode,getAllCode
+    
 }

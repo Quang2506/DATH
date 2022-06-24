@@ -11,7 +11,8 @@ import {
     handleGetUser,
     handleCreateUser,
     handleDeleteUser,
-    handleEditUser
+    handleEditUser,
+    getAllCode
     
 } from '../controller/userLogin'
 const router = express.Router()
@@ -30,6 +31,9 @@ const initWebRoutes = (app) => {
     router.post('/api/create-user',handleCreateUser)
     router.delete('/api/delete-user',handleDeleteUser)
     router.put('/api/edit-user',handleEditUser)
+
+    //Allcode
+    router.get('/allcode',getAllCode)
     return app.use("/",router)
 }
 module.exports = initWebRoutes
