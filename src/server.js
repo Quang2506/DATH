@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import viewEngine from './config/viewEngine'
+
 import initWebRoutes from './route/web'
 import connectDB from './config/connectDB'
 require('dotenv').config
@@ -28,13 +28,15 @@ app.use(function (req, res, next) {
     next();
 });
 //config app
-app.use(bodyParser.json())// cấu hinh tham số từ cline gửi
-app.use(bodyParser.urlencoded({extended:true}))
+//app.use(bodyParser.json())// cấu hinh tham số từ cline gửi
+//app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json({limit:'50mb'}))// cấu hinh tham số từ cline gửi
+app.use(bodyParser.urlencoded({limit:'50mb', extended:true}))
 
-viewEngine(app)
+
 initWebRoutes(app)
 connectDB()
-const port =  process.env.PORT ||6969
+const port =  process.env.PORT ||8080
 
 app.listen(port,()=> {
     console.log('Back-End is running on the port ', port)

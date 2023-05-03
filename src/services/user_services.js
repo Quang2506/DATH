@@ -2,6 +2,11 @@ import db from '../models/index'
 import bcrypt from 'bcryptjs'
 var salt = bcrypt.genSaltSync(10);
 
+
+
+
+
+//------------------Login--------------------
 const handleUserLogin = (email, password) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -14,7 +19,7 @@ const handleUserLogin = (email, password) => {
                     raw: true
                 })
                 if (user) {
-                    const checkPass = await true //bcrypt.compare(password,user.password)
+                    const checkPass = await  true //bcrypt.compare(password,user.password)
                     if (checkPass) {
                         userData.errCode = 0
                         userData.errMessage = 'ok'
@@ -30,7 +35,7 @@ const handleUserLogin = (email, password) => {
                 }
 
             } else {
-                userData.errCode = 1;
+                userData.errCode = 4;
                 userData.errMessage = `your email isn't exist in your system .`
 
 
@@ -42,6 +47,9 @@ const handleUserLogin = (email, password) => {
     })
 }
 
+
+
+//----------------------check Login--------------------
 const checkUserLogin = (emailUser) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -64,6 +72,7 @@ const checkUserLogin = (emailUser) => {
 
 }
 
+//--------------------getUser------------------------------
 const getAllUser = (idUser) => {
 
     return new Promise(async (resolve, reject) => {
@@ -94,6 +103,11 @@ const getAllUser = (idUser) => {
         }
     })
 }
+
+
+
+
+//-----------------create User------------------------------------
 const createUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -109,12 +123,15 @@ const createUser = (data) => {
                 await db.User.create({
                     email: data.email,
                     password: hashUserPassWorkFromBcrypt,
-                    firstName: data.firstName,
+                    firstName: data.firsName,
                     lastName: data.lastName,
                     address: data.address,
-                    phonenumber: data.phonenumber,
-                    gender: data.gender === '1' ? true : false,
-                    roleId: data.roleId,
+                    phonenumber: data.phoneNumber,
+                    gender: data.gender,
+                    roleId: data.role,
+                    positionId:data.position,
+                    image:data.avatar
+
 
                 })
                 resolve({
@@ -131,6 +148,8 @@ const createUser = (data) => {
         }
     })
 }
+
+//---------------------hashPass--------------------------
 const hashUserPassWork = (password) => {
     return new Promise(async (resolve, reject) => {
 
@@ -142,10 +161,15 @@ const hashUserPassWork = (password) => {
         }
     })
 }
+
+
+
+//---------Delete------------------------------------------
 const deleteUser = (idUser) => {
 
     return new Promise(async (resolve, reject) => {
         try {
+            
             const user = await db.User.findOne({
                 where: { id: idUser }
             })
@@ -172,6 +196,7 @@ const deleteUser = (idUser) => {
         }
     })
 }
+//------------------------------------------------update------------------------------------
 const updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -185,23 +210,17 @@ const updateUser = (data) => {
                 where: { id: data.id },
                 raw: false
             })
+           
             if (updateId) {
-                updateId.firstName = data.firstName
+                updateId.firstName = data.firsName
                 updateId.lastName = data.lastName
                 updateId.address = data.address
-                updateId.phonenumber = data.phonenumber
+                updateId.phonenumber = data.phoneNumber
                 updateId.gender = data.gender
+                updateId.roleId = data.role
+                updateId.positionId=data.position
+                updateId.image = data.avatar
                 await updateId.save()
-
-                //  await db.User.save({
-                //     firstName : data.firstName,
-                //     lastName : data.lastName,
-                //     address: data.address,
-                //     phonenumber:data.phonenumber,
-                //     gender : data.gender,
-
-                //  })
-
                 resolve({
                     errCode: 0,
                     message: 'Update the User succeeds'
@@ -217,22 +236,7 @@ const updateUser = (data) => {
         }
     })
 }
-// const getAllCodeService = () => {
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             let res = {}
-//             let allcodedata = await db.AllCode.findAll();
-//             //console.log('1233334444vb',allcode)
-//             res.errCode == 0;
-//             res.data = allcodedata;
-//             resolve(res)
-//         } catch (e) {
-//             reject(e)
 
-//         }
-
-//     })
-// }
 module.exports = {
     handleUserLogin: handleUserLogin,
     getAllUser: getAllUser,

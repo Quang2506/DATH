@@ -1,6 +1,8 @@
 import user_services from '../services/user_services'
 import db from '../models/index'
 
+
+//-------------------Login-----------------------
 const handleLogin=async (req,res)=>{
     const email = req.body.email
     const passwork = req.body.passwork
@@ -20,6 +22,9 @@ const handleLogin=async (req,res)=>{
 }
 
 
+
+
+// ------------- Get User------------
 const handleGetUser = async (req,res)=>{
     const id = req.query.id
     if(!id) {
@@ -37,11 +42,19 @@ const handleGetUser = async (req,res)=>{
     })
     
 }
+
+
+//-------------------------createUser-----------------------------
 const handleCreateUser =async (req,res) =>{
     const data = await user_services.createUser(req.body)
     return res.status(200).json(data)
 
 }
+
+
+
+
+//-----------------------delete -------------------------------
 const handleDeleteUser = async (req,res)=>{
   if(!req.body.id){
       return res.status(200).json({
@@ -56,32 +69,38 @@ const handleDeleteUser = async (req,res)=>{
   }
   
 }
+
+
+//----------------------------edit----------------------
 const handleEditUser = async (req,res)=>{
     const data = await user_services.updateUser(req.body)
     return  res.status(200).json({data})
     
 }
-const getAllCode =async (req,res)=>{
-    try{
-        const data = await db.CodeAll.findAll()
-        
-        console.log(data)
-    }catch(e){
-        console.log('e',e)
-       return res.status(200).json({
-        errcode:-1,
-        errMessage:'Error from  Server'
-       })
 
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports={
-    getAllCode:getAllCode,
+   
     handleLogin:handleLogin,
     handleGetUser:handleGetUser,
     handleCreateUser:handleCreateUser,
     handleDeleteUser:handleDeleteUser,
     handleEditUser:handleEditUser,
-    getAllCode,getAllCode
+   
     
 }
