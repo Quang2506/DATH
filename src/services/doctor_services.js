@@ -1,5 +1,10 @@
-import { raw } from "body-parser"
+const _=require('lodash')
 import db from "../models/index"
+require('dotenv').config()
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE
+
+
+
 
 const getTopDoctorHomeSv = (limitInput) =>{
     return new Promise(async (resolve,reject)=>{
@@ -133,10 +138,49 @@ return new Promise (async(resolve,reject)=>{
         }
     })
  }
+ const creatScheduleDoctorServies = (reqData)=>{
+    return new Promise (async (resolve,reject)=>{
+        try{
+            if(!reqData.arrResult){
+                resolve({
+                    errorCode:1,
+                    message:'missing reqdata'
+                })
+            }else{
+                let  dataSchedule;
+                if(reqData.arrResult&& reqData.arrResult.length>0){
+                   dataSchedule= reqData.arrResult.map(i=>{
+                        i.maxNumber=MAX_NUMBER_SCHEDULE
+                    
+                        return i
+                    })
+                }
+                
+             
+               //await db.Schedule.bulkCreate(dataSchedule)
+               
+             
+               let  dataModels =await db.Schedule .findAll({
+                    where:{doctorId:reqData.doctorId },
+                    attributes:["timeType","doctorId",'date','maxNumber'],
+                    raw:true
+                   })
+                   
+                   const results = dataSchedule.filter(({ timeType: id1,date:date }) => !dataModels.some(({ timeType: id2,date:date2 }) => id2 === id1&&date===date2));
+                   await db.Schedule.bulkCreate(results)
+            }
+        }catch{
+
+        }
+
+    })
+
+ }
 module.exports = {
     getTopDoctorHomeSv:getTopDoctorHomeSv,
     getAllDoctorServices:getAllDoctorServices,
     postInfDoctorServices:postInfDoctorServices,
     getDetailDoctorByIdServices:getDetailDoctorByIdServices,
-    updateInfDetailDoctorSv:updateInfDetailDoctorSv
+    updateInfDetailDoctorSv:updateInfDetailDoctorSv,
+    creatScheduleDoctorServies:creatScheduleDoctorServies
 }

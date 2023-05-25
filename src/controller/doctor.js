@@ -80,10 +80,23 @@ const updateDetailDoctorCtrl =async (req,res)=>{
         })
     }
 }
+const creatScheduleDoctor = async (req,res) =>{
+    try{
+        let dataRes = await doctor.creatScheduleDoctorServies(req.body)
+        console.log(dataRes)
+        if(dataRes){
+            console.log(dataRes)
+        }
+    }catch(e){
+console.log(e)
+    }
+}
 module.exports = {
     getAllDoctor: getAllDoctor,
     getTopDoctorHome: getTopDoctorHome,
     postInfDoctor: postInfDoctor,
     getDoctorDetailById :getDoctorDetailById ,
-    updateDetailDoctorCtrl:updateDetailDoctorCtrl
+    updateDetailDoctorCtrl:updateDetailDoctorCtrl,
+    creatScheduleDoctor:creatScheduleDoctor
+
 }

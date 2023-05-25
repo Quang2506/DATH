@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         description: DataTypes.TEXT,
         image: DataTypes.STRING,
 
-
     }, {
         sequelize,
         modelName: 'Clinic',

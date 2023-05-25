@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({limit:'50mb', extended:true}))
 
 initWebRoutes(app)
 connectDB()
-const port =  process.env.PORT ||8080
+const port =  process.env.PORT ||6969
 
 app.listen(port,()=> {
     console.log('Back-End is running on the port ', port)

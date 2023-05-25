@@ -30,7 +30,7 @@ const initWebRoutes = (app) => {
   router.post('/api/save-inf-doctor',doctor.postInfDoctor)
   router.get('/api/get-doctor-detail-by-id',doctor.getDoctorDetailById)
   router.put('/api/edit-markdown',doctor.updateDetailDoctorCtrl)
-
+  router.post('/api/creat-schedule',doctor.creatScheduleDoctor)
 
   return app.use("/", router)
 }
